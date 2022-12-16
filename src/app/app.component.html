@@ -1,3 +1,25 @@
 <ion-app>
-  <ion-router-outlet></ion-router-outlet>
+  <ion-menu contentId="main">
+    <ion-header>
+      <ion-toolbar>
+        <ion-title>Menu Content</ion-title>
+      </ion-toolbar>
+    </ion-header>
+
+    <ion-content class="ion-padding">
+      <ion-item>
+        <ion-button routerLink="/tabs/contacts"> Contacts </ion-button>
+      </ion-item>
+      <ion-item>
+        <ion-button routerLink="/tabs/settings"> Settings </ion-button>
+      </ion-item>
+      <ion-item>
+        <ion-button routerLink="/add-contact"> Add Contact </ion-button>
+      </ion-item>
+      <ion-item>
+        <ion-label> Made with ❤️ by Vivek! </ion-label>
+      </ion-item>
+    </ion-content>
+  </ion-menu>
+  <ion-router-outlet id="main"> </ion-router-outlet>
 </ion-app>

@@ -1,17 +1,68 @@
 <ion-header [translucent]="true">
   <ion-toolbar>
-    <ion-title>
-      Tab 1
-    </ion-title>
+    <ion-buttons slot="start">
+      <ion-menu-button></ion-menu-button>
+    </ion-buttons>
+    <ion-title> My Contacts App </ion-title>
   </ion-toolbar>
 </ion-header>
 
 <ion-content [fullscreen]="true">
   <ion-header collapse="condense">
     <ion-toolbar>
-      <ion-title size="large">Tab 1</ion-title>
+      <ion-title size="large">My Contacts</ion-title>
     </ion-toolbar>
   </ion-header>
+  <ion-fab
+    slot="fixed"
+    vertical="bottom"
+    horizontal="end"
+    routerLink="/add-contact"
+    class="ion-padding"
+  >
+    <ion-fab-button>
+      <ion-icon name="add"></ion-icon>
+    </ion-fab-button>
+  </ion-fab>
+  <ion-toolbar>
+    <ion-searchbar
+      [debounce]="300"
+      (ionChange)="handleChange($event)"
+    ></ion-searchbar>
+  </ion-toolbar>
 
-  <app-explore-container name="Tab 1 page"></app-explore-container>
+  <ion-list>
+    <ion-item-sliding *ngFor="let contact of results;index as i">
+      <ion-item detail="true" routerLink="/details/{{contact._id}}">
+        <ion-avatar slot="start">
+          <img
+            alt="Avatar"
+            src="{{contact.image?contact.image:'https://ionicframework.com/docs/img/demos/avatar.svg'}}"
+          />
+        </ion-avatar>
+        <ion-label>
+          <h3>{{contact.name|titlecase}}</h3>
+          <p>{{contact.phone}}</p>
+        </ion-label>
+      </ion-item>
+      <ion-item-options side="start" (ionSwipe)="deleteContact(contact._id,i)">
+        <ion-item-option
+          color="danger"
+          expandable
+          (click)="deleteContact(contact._id,i)"
+        >
+          <ion-icon slot="icon-only" name="trash"></ion-icon>
+        </ion-item-option>
+      </ion-item-options>
+      <ion-item-options side="end" (ionSwipe)="callContact(contact.phone)">
+        <ion-item-option
+          color="success"
+          expandable
+          (click)="callContact(contact.phone)"
+        >
+          <ion-icon slot="icon-only" name="call"></ion-icon>
+        </ion-item-option>
+      </ion-item-options>
+    </ion-item-sliding>
+  </ion-list>
 </ion-content>
