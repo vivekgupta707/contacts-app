@@ -1,0 +1,99 @@
+<ion-header [translucent]="true">
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-back-button defaultHref="/tabs/contacts"></ion-back-button>
+    </ion-buttons>
+    <ion-title> Add Contact</ion-title>
+    <ion-buttons slot="end">
+      <ion-button
+        (click)="onSubmit()"
+        shape="round"
+        fill="solid"
+        color="primary"
+      >
+        Save
+      </ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content [fullscreen]="true">
+  <div class="ion-padding">
+    <div class="ion-text-center">
+      <div
+        *ngIf="!profilePic"
+        (click)="presentActionSheet()"
+        class="ion-padding-vertical circle profile"
+      >
+        <ion-icon
+          class="ion-padding-top"
+          slot="icon-only"
+          size="large"
+          color="light"
+          name="camera-sharp"
+        ></ion-icon>
+      </div>
+      <img
+        [src]="fileUrl"
+        *ngIf="profilePic"
+        (click)="presentActionSheet()"
+        class="profile"
+      />
+
+      <p>
+        <ion-text color="medium">{{
+          profilePic ? "Change Photo" : "Add Photo"
+        }}</ion-text>
+      </p>
+    </div>
+    <form [formGroup]="contactForm" (ngSubmit)="onSubmit()">
+      <!-- Contact Name -->
+      <ion-item>
+        <ion-label position="floating"> Enter Name </ion-label>
+        <ion-input
+          type="text"
+          placeholder="Contact Name"
+          formControlName="name"
+        ></ion-input>
+      </ion-item>
+      <!-- Contact Phone number -->
+      <ion-item>
+        <ion-label position="floating">Enter Phone Number</ion-label>
+        <ion-input
+          type="text"
+          placeholder="Contact Phone Number"
+          formControlName="phone"
+        ></ion-input>
+      </ion-item>
+      <!-- Contact email -->
+      <ion-item>
+        <ion-label position="floating">Enter Email</ion-label>
+        <ion-input
+          type="email"
+          placeholder="Contact Email"
+          formControlName="email"
+        ></ion-input>
+      </ion-item>
+
+      <!-- Contact Address -->
+      <ion-item>
+        <ion-label position="floating">Enter Address</ion-label>
+        <ion-input
+          type="text"
+          placeholder="Contact Address
+        "
+          formControlName="address"
+        ></ion-input>
+      </ion-item>
+      <!-- Notes -->
+      <ion-item>
+        <ion-label position="floating">Enter Notes</ion-label>
+        <ion-textarea
+          type="text"
+          placeholder="Max 200 characters"
+          formControlName="notes"
+        ></ion-textarea>
+      </ion-item>
+    </form>
+  </div>
+</ion-content>

@@ -1,0 +1,94 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-back-button defaultHref="/tabs/contacts"></ion-back-button>
+    </ion-buttons>
+    <ion-title>Contact Detail</ion-title>
+    <ion-buttons slot="end">
+      <ion-button
+        (click)="mode==='show'?onEdit():onSave()"
+        shape="round"
+        fill="solid"
+        color="primary"
+      >
+        {{mode==='show'?'Edit':'Save'}}
+      </ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <ion-card class="ion-text-center">
+    <img
+      src="{{Contact?.image?Contact.image:'https://ionicframework.com/docs/img/demos/avatar.svg'}}"
+      (click)="mode==='edit'?presentActionSheet():''"
+      class="profile ion-text-center ion-margin-top"
+    />
+    <div *ngIf="mode==='show'">
+      <ion-card-header>
+        <ion-card-title>{{Contact?.name|titlecase}}</ion-card-title>
+        <ion-card-subtitle>{{Contact?.phone}}</ion-card-subtitle>
+        <ion-card-subtitle>{{Contact?.address|titlecase}}</ion-card-subtitle>
+      </ion-card-header>
+
+      <ion-card-content> {{Contact?.notes|titlecase}} </ion-card-content>
+      <ion-button href="tel:{{Contact?.phone}}" fill="outline"
+        >Call
+        <ion-icon slot="end" name="call"></ion-icon>
+      </ion-button>
+      <ion-button fill="clear" href="mailto:{{Contact?.email}}"
+        >Send Email
+        <ion-icon slot="end" name="mail"></ion-icon>
+      </ion-button>
+    </div>
+    <form [formGroup]="contactForm" *ngIf="mode==='edit'" (ngSubmit)="onSave()">
+      <!-- Contact Name -->
+      <ion-item>
+        <ion-label position="floating"> Enter Name </ion-label>
+        <ion-input
+          type="text"
+          placeholder="Contact Name"
+          formControlName="name"
+        ></ion-input>
+      </ion-item>
+      <!-- Contact Phone number -->
+      <ion-item>
+        <ion-label position="floating">Enter Phone Number</ion-label>
+        <ion-input
+          type="text"
+          placeholder="Contact Phone Number"
+          formControlName="phone"
+        ></ion-input>
+      </ion-item>
+      <!-- Contact email -->
+      <ion-item>
+        <ion-label position="floating">Enter Email</ion-label>
+        <ion-input
+          type="email"
+          placeholder="Contact Email"
+          formControlName="email"
+        ></ion-input>
+      </ion-item>
+
+      <!-- Contact Address -->
+      <ion-item>
+        <ion-label position="floating">Enter Address</ion-label>
+        <ion-input
+          type="text"
+          placeholder="Contact Address
+        "
+          formControlName="address"
+        ></ion-input>
+      </ion-item>
+      <!-- Notes -->
+      <ion-item>
+        <ion-label position="floating">Enter Notes</ion-label>
+        <ion-textarea
+          type="text"
+          placeholder="Max 200 characters"
+          formControlName="notes"
+        ></ion-textarea>
+      </ion-item>
+    </form>
+  </ion-card>
+</ion-content>
