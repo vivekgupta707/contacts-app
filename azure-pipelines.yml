@@ -52,8 +52,11 @@ steps:
 
   displayName: 'Npm install Cordova'
 
-  
+- script: |
 
+     ng test
+
+  displayName: 'testing ...'
 
 
 - script: |
