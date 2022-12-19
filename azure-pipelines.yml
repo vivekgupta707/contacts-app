@@ -16,7 +16,7 @@ steps:
 
   inputs:
 
-    versionSpec: '17.0.1'
+    versionSpec: '16.13.0'
 
   displayName: 'Install Node.js'
 
@@ -54,7 +54,7 @@ steps:
 
 - script: |
 
-     ng test
+     ng test --no-watch --code-coverage=true --source-map=true --browsers='ChromeHeadlessNoSandbox
 
   displayName: 'testing ...'
 
